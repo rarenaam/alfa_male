@@ -57,8 +57,8 @@ function applySecurityHeaders(response: Response): Response {
   }
 
   // Remove headers that might leak information
-  headers.remove("X-Powered-By");
-  headers.remove("Server");
+  headers.delete("X-Powered-By");
+  headers.delete("Server");
 
   return new Response(response.body, {
     status: response.status,
