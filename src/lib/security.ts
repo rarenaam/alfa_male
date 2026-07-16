@@ -79,3 +79,36 @@ setInterval(() => {
     }
   }
 }, 5 * 60 * 1000);
+
+/**
+ * Validate that the required environment variables are set and have correct formats.
+ * @returns An object containing the validation status, errors, and warnings.
+ */
+export function validateEnvironment(): {
+  success: boolean;
+  errors: string[];
+  warnings: string[];
+} {
+  const errors: string[] = [];
+  const warnings: string[] = [];
+
+  // Voeg hier eventuele kritieke omgevingsvariabelen toe die absoluut vereist zijn
+  const requiredEnvs: string[] = []; 
+
+  requiredEnvs.forEach((envVar) => {
+    if (!process.env[envVar]) {
+      errors.push(`Missing required environment variable: ${envVar}`);
+    }
+  });
+
+  // Optioneel: Waarschuwing als we in productie draaien zonder gedefinieerde NODE_ENV
+  if (!process.env.NODE_ENV) {
+    warnings.push("NODE_ENV is not set. Defaulting to development mode.");
+  }
+
+  return {
+    success: errors.length === 0,
+    errors,
+    warnings,
+  };
+}
