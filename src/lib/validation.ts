@@ -25,11 +25,10 @@ export function sanitizeAttribute(input: string): string {
 
   // Escape quotes and other dangerous characters for attributes
   return input
-    .replace(/"/g, """)
-    .replace(/'/g, "'")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;")
     .replace(/`/g, "&#x60;");
 }
-
 /**
  * Validate email format
  * @param input The email to validate
